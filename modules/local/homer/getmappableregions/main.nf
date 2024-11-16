@@ -2,10 +2,9 @@
 // The program takes a while on mammalian genomes (~day)
 process HOMER_GETMAPPABLEREGIONS {
     tag "${fasta_files[0].baseName}"
-    label 'process_medium'
-    label 'process_high_memory'
-    label 'process_long'
-    time '2d'
+    cpus 16
+    memory '200GB'
+    time '3d'
     conda "${moduleDir}/environment.yml"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
         ? 'https://depot.galaxyproject.org/singularity/homer:4.11--pl526hc9558a2_3'
