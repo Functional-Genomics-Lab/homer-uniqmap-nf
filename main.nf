@@ -1,15 +1,11 @@
 include { HOMER_GETMAPPABLEREGIONS } from './modules/local/homer/getmappableregions'
 include { HOMER_CREATEUNIQMAP      } from './modules/local/homer/createuniqmap'
 
-workflow HOMER_UNIQMAP {
-    take:
-    fasta //    file: genome.fa
-
-    main:
+workflow {
     ch_versions = Channel.empty()
 
     // Split FASTA by chromosome
-    split_fastas = fasta
+    split_fastas = params.fasta
         .splitFasta(by: 1, file: true)
         .toSortedList()
 
@@ -26,7 +22,4 @@ workflow HOMER_UNIQMAP {
         HOMER_GETMAPPABLEREGIONS.out.txt
     )
     ch_versions = ch_versions.mix(HOMER_CREATEUNIQMAP.out.versions)
-
-    emit:
-    uniqmap = HOMER_CREATEUNIQMAP.out.uniqmap_dir
 }
