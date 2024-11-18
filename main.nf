@@ -5,7 +5,7 @@ workflow {
     ch_versions = Channel.empty()
 
     // Split FASTA by chromosome
-    split_fastas = params.fasta
+    split_fastas = file(params.fasta)
         .splitFasta(by: 1, file: true)
         .toSortedList()
 
