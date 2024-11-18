@@ -5,9 +5,7 @@ workflow {
     ch_versions = Channel.empty()
 
     // Split FASTA by chromosome
-    split_fastas = file(params.fasta)
-        .splitFasta(by: 1, file: true)
-        .toSortedList()
+    split_fastas = file(params.fasta).splitFasta(by: 1, file: true)
 
     // Generate mappable regions
     HOMER_GETMAPPABLEREGIONS(
