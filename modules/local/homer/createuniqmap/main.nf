@@ -1,5 +1,5 @@
 process HOMER_CREATEUNIQMAP {
-    tag "${meta.id}"
+    // tag "${meta.id}"
     cpus 16
     memory '200GB'
     time '3d'
