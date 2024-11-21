@@ -20,7 +20,7 @@ process HOMER_CREATEUNIQMAP {
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    def prefix = task.ext.prefix ?: ""
     def VERSION = '4.11'
     """
     mkdir -p uniqmap
