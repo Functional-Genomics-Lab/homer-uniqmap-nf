@@ -2,6 +2,7 @@ include { HOMER_GETMAPPABLEREGIONS } from './modules/local/homer/getmappableregi
 include { HOMER_CREATEUNIQMAP      } from './modules/local/homer/createuniqmap'
 
 workflow {
+    main:
     ch_versions = Channel.empty()
 
     // Split FASTA by chromosome
@@ -20,4 +21,7 @@ workflow {
         HOMER_GETMAPPABLEREGIONS.out.txt
     )
     ch_versions = ch_versions.mix(HOMER_CREATEUNIQMAP.out.versions)
+
+    publish:
+    HOMER_CREATEUNIQMAP.out.uniqmap_dir >> 'homer/uniqmap'
 }
