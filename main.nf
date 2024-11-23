@@ -27,3 +27,9 @@ workflow {
     publish:
     HOMER_CREATEUNIQMAP.out.uniqmap_dir >> 'homer/uniqmap'
 }
+
+output {
+    'homer/uniqmap' {
+        mode 'copy'
+    }
+}
