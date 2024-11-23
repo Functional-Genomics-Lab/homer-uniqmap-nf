@@ -1,3 +1,5 @@
+nextflow.preview.output = true
+
 include { HOMER_GETMAPPABLEREGIONS } from './modules/local/homer/getmappableregions'
 include { HOMER_CREATEUNIQMAP      } from './modules/local/homer/createuniqmap'
 
