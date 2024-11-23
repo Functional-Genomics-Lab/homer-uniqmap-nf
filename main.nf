@@ -25,11 +25,11 @@ workflow {
     ch_versions = ch_versions.mix(HOMER_CREATEUNIQMAP.out.versions)
 
     publish:
-    HOMER_CREATEUNIQMAP.out.uniqmap_dir >> 'homer/uniqmap'
+    HOMER_CREATEUNIQMAP.out.uniqmap_dir >> 'homer' // /uniqmap get's implicitly added
 }
 
 output {
-    'homer/uniqmap' {
+    'homer' {
         mode 'copy'
     }
 }
