@@ -1,8 +1,8 @@
 process HOMER_CREATEUNIQMAP {
     // tag "${meta.id}"
     cpus 16
-    memory '200GB'
-    time '3d'
+    memory '10GB'
+    time '2h'
     conda "${moduleDir}/environment.yml"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
         ? 'https://depot.galaxyproject.org/singularity/homer:4.11--pl526hc9558a2_3'
