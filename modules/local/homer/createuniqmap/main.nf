@@ -4,8 +4,8 @@ process HOMER_CREATEUNIQMAP {
     time '2h'
     conda "${moduleDir}/environment.yml"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-        ? 'https://depot.galaxyproject.org/singularity/homer:4.11--pl526hc9558a2_3'
-        : 'biocontainers/homer:4.11--pl526hc9558a2_3'}"
+        ? 'oras://community.wave.seqera.io/library/homer_zip:c9b7d4ac4204910a'
+        : 'community.wave.seqera.io/library/homer_zip:609bdbc38096592d'}"
 
     input:
     path mappable_regions
