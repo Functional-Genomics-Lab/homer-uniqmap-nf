@@ -4,7 +4,7 @@ process HOMER_CREATEUNIQMAP {
     time '2h'
     conda "${moduleDir}/environment.yml"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-        ? 'oras://community.wave.seqera.io/library/homer_zip:c9b7d4ac4204910a'
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/a9/a95e022fd59f038e163b3447b9a76a0f6dec6c3489cf276913a314b70f471007/data'
         : 'community.wave.seqera.io/library/homer_zip:609bdbc38096592d'}"
 
     input:
