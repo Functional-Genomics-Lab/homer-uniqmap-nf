@@ -7,15 +7,21 @@ nextflow_pipeline {
 
         when {
             params {
-                // define parameters here. Example: 
+                // define parameters here. Example:
                 // outdir = "tests/results"
             }
         }
 
         then {
-            assert workflow.success
+            assertAll(
+                { assert workflow.success },
+                {
+                    assert snapshot(
+                        workflow.trace.tasks().size(),
+                        path("$outputDir/homer/uniqmap.GRCh38_chr21.50nt.zip"),
+                    ).match()
+                }
+            )
         }
-
     }
-
 }
