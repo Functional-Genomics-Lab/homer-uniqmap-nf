@@ -1,5 +1,4 @@
 process HOMER_CREATEUNIQMAP {
-    // tag "${meta.id}"
     cpus 16
     memory '10GB'
     time '2h'
@@ -10,9 +9,12 @@ process HOMER_CREATEUNIQMAP {
 
     input:
     path mappable_regions
+    val genome_name
+    val read_length
 
     output:
     path ("uniqmap/"), emit: uniqmap_dir
+    path ("uniqmap*.zip"), emit: uniqmap_zip
     path "versions.yml", emit: versions
 
     when:
@@ -22,9 +24,21 @@ process HOMER_CREATEUNIQMAP {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: ""
     def VERSION = '4.11'
+    // Zip up the uniqmap directory
+    // Results in uniqmap.hg38.50nt.zip
+    // uniqmap.<genome>.<read_length>nt.zip
+    // Then inside of it
+    // hg38-50nt-uniqmap/chr18.p.uniqmap
+    // Might just be easier to make it in HOMER_CREATEUNIQMAP and publish both
     """
     mkdir -p uniqmap
-    homerTools special uniqmap uniqmap/ ${mappable_regions}
+    homerTools special uniqmap \\
+        ${genome_name}-${read_length}nt-uniqmap/ \\
+        ${mappable_regions}
+
+    zip -r \\
+        uniqmap.${genome_name}.${read_length}nt.zip \\
+        ${genome_name}-${read_length}nt-uniqmap/
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

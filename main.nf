@@ -20,19 +20,14 @@ workflow {
 
     // Create uniqmap directory
     HOMER_CREATEUNIQMAP(
-        HOMER_GETMAPPABLEREGIONS.out.txt
+        HOMER_GETMAPPABLEREGIONS.out.txt,
+        params.genome_name,
+        params.read_length
     )
     ch_versions = ch_versions.mix(HOMER_CREATEUNIQMAP.out.versions)
 
-    // TODO Zip up the uniqmap directory
-    // Results in uniqmap.hg38.50nt.zip
-    // uniqmap.<genome>.<read_length>nt.zip
-    // Then inside of it
-    // hg38-50nt-uniqmap/chr18.p.uniqmap
-    // Might just be easier to make it in HOMER_CREATEUNIQMAP and publish both
-
     publish:
-    HOMER_CREATEUNIQMAP.out.uniqmap_dir >> 'homer' // /uniqmap get's implicitly added
+    HOMER_CREATEUNIQMAP.out.uniqmap_zip >> 'homer'
 }
 
 output {
